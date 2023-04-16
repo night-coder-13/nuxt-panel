@@ -18,8 +18,8 @@ export default ()=>{
         actions :{
             async GetCategory([commit]){
                 try{
-                    console.log('response.data')
                     const response = await axios.get('http://panel.mehdi-abasian.ir/wp-json/wl/v1/product_cat')
+                    console.log(response.data)
                     commit('getCategory',response.data)
                 }catch(error){
                     console.log(error)

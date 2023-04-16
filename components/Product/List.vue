@@ -5,7 +5,7 @@
             <label class="label">Category</label>
             <div class="control">
                 <div class="select">
-                    <select name="category" required>
+                    <select @change="SelectCategory(5,$event)" name="category" required>
                         <option>Select </option>
                         <option @click="SelectCategory(cat.id)" v-for="( cat , i) in category" :key="i" v-text="cat.name" :value="cat.id"></option>
                     </select>
@@ -69,9 +69,9 @@ export default {
         EditProduct(id){
             alert(id)
         },
-        async SelectCategory(id){
+        async SelectCategory(id , e){
             this.loader = true
-            this.product = await axios.get('http://panel.mehdi-abasian.ir/wp-json/wl/v1/archive/'+id)
+            this.product = await axios.get('http://panel.mehdi-abasian.ir/wp-json/wl/v1/archive/'+e.target.value)
             this.product = this.product.data;
             this.loader = false
         }

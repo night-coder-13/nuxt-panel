@@ -39,12 +39,7 @@
                         <p class="subtitle has-text-white-bis">Contact</p>
                     </article>
                 </div>
-                <div class="tile is-parent">
-                    <article class="tile is-child box has-background-grey-dark	">
-                        <p class="title has-text-white-bis">00</p>
-                        <p class="subtitle has-text-white-bis">NUN</p>
-                    </article>
-                </div>
+                
             </div>
         </section>
         

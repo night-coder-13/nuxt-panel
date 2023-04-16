@@ -1,6 +1,6 @@
 <template>
 
-  <Catalog />
+  <Emails />
 
 </template>
 

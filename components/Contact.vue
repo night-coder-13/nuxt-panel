@@ -5,7 +5,7 @@
             <div class="tile is-parent ">
                 <article class="tile is-child box has-background-grey-dark has-text-white-bis">
                     <p class="title has-text-white-bis" v-text="count"></p>
-                    <p class="subtitle has-text-white-bis	">Members</p>
+                    <p class="subtitle has-text-white-bis	">Contactd</p>
                 </article>
             </div>
         </div>
@@ -39,7 +39,7 @@
                 </tbody>
             </table>
         </div>
-        <form v-else @submit.prevent="addProduct()" class="columns is-multiline" action="http://localhost/afam-wp/26-2/" method="get" enctype="multipart/form-data">
+        <form v-else @submit.prevent="addEmail()" class="columns is-multiline" action="http://localhost/afam-wp/26-2/" method="get" enctype="multipart/form-data">
             <div class="field column is-two-thirds ">
                 <p>Send email to : {{ user }}</p>
             </div>
@@ -47,13 +47,13 @@
             <div class="field column is-two-thirds ">
                 <label class="label">Title</label>
                 <div class="control">
-                    <input class="input" name="name" type="text" placeholder="Product Name" required>
+                    <input class="input" v-model="form_Email.title" name="name" type="text" placeholder="Product Name" required>
                 </div>
             </div>
             <div class="field column is-two-thirds">
                 <label class="label">Content</label>
                 <div class="control">
-                    <textarea class="textarea" placeholder="Description..."></textarea>
+                    <textarea class="textarea" v-model="form_Email.content" placeholder="Description..."></textarea>
                 </div>
             </div>
             <div class="field column is-two-thirds is-grouped">
@@ -65,28 +65,42 @@
                 </div>
             </div>
         </form>
+        
     </div>
 </template>
 
 <script setup>
 import axios from 'axios';
+import Swal from 'sweetalert2';
 import { ref } from 'vue';
 const category = ref();
 const count = ref();
 const sendemail = ref(false);
 const user = ref('');
-
+const form_Email = ref({
+    title : '',
+    destination : '',
+    content : '',
+    date : '0000-00-00',
+});
 
 async function get(){
-    category.value = await axios.get('http://localhost/afam-panel/show-newsletter')
+    category.value = await axios.get('http://localhost/afam-panel/show-contact')
     count.value = category.value.data.length 
     category.value = category.value.data
 }
-
-
 function SendEmail(email){
     sendemail.value= !sendemail.value;
     user.value = email;
+}
+async function addEmail(){
+    form_Email.value.destination = user.value
+    let post = await axios.post('http://localhost/afam-panel/new-email',form_Email.value)
+    Swal.fire({
+        icon: 'success',
+        title: post.data.text,
+    })
+    console.log(post.data)
 }
 function del (id){
     Swal.fire({
@@ -121,7 +135,6 @@ async function Delete(id){
     category.value = category.value.data
 }
 
-
-
 get()
+
 </script>

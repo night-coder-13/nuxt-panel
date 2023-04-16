@@ -42,6 +42,8 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    'nuxt-sweetalert2',
+
     // '@nuxtjs/tailwindcss'
   ],
 
