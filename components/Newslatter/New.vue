@@ -8,11 +8,11 @@
                 </article>
             </div>
         </div>
-        <form @submit.prevent="addProduct()" class="columns is-multiline" action="http://localhost/afam-wp/26-2/" method="get" enctype="multipart/form-data">
+        <form @submit.prevent="addEmail()" class="columns is-multiline" enctype="multipart/form-data">
             <div class="field column is-two-thirds ">
                 <label class="label">Title</label>
                 <div class="control">
-                    <input class="input" name="name" type="text" placeholder="Product Name" required>
+                    <input class="input" name="name" v-model="form_Email.title" type="text" placeholder="Product Name" required>
                 </div>
             </div>
             
@@ -20,11 +20,11 @@
                 <label class="label">Recipients</label>
                 <div class="control">
                     <div class="select">
-                    <select name="category" required>
-                        <option>Select </option>
-                        <option>Contact us </option>
-                        <option>Newslatter </option>
-                        <option>Newslatter & Contact us </option>
+                    <select name="category" v-model="form_Email.destination" required>
+                        <option >Select </option>
+                        <option value="Contact_us">Contact us </option>
+                        <option value="Newslatter">Newslatter </option>
+                        <option value="Newslatter_&_Contact_us">Newslatter & Contact us </option>
                     </select>
                     </div>
                 </div>
@@ -33,7 +33,7 @@
                 <div class="field column is-two-thirds">
                 <label class="label">Content</label>
                 <div class="control">
-                    <textarea class="textarea" placeholder="Description..."></textarea>
+                    <textarea class="textarea" v-model="form_Email.content"  placeholder="Description..."></textarea>
                 </div>
             </div>
 
@@ -48,7 +48,25 @@
     
 </template>
 
-<script>
+<script setup>
+import axios from 'axios';
+import Swal from 'sweetalert2';
+import { ref } from 'vue';
 
+
+const form_Email = ref({
+    title : '',
+    destination : '',
+    content : '',
+    date : '0000-00-00',
+});
+
+async function addEmail(){
+    let post = await axios.post('http://localhost/afam-panel/new-email',form_Email.value)
+    Swal.fire({
+        icon: 'success',
+        title: post.data.text,
+    })
+}
 
 </script>

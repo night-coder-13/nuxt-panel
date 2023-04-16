@@ -1,15 +1,22 @@
 <!-- Please remove this file from your project -->
 <template>
-    <form class="columns is-multiline" action="" method="get" enctype="multipart/form-data">
+    <form class="columns is-multiline" @submit.prevent="submit()" enctype="multipart/form-data">
             <div class="field column is-two-thirds ">
                 <label class="label">Title</label>
                 <div class="control">
-                    <input class="input" name="title" type="text" placeholder="Title" required>
+                    <input class="input" name="title" v-model="form.title" type="text" placeholder="Title" required>
+                </div>
+            </div>
+            <div class="field column is-two-thirds">
+                <label class="label">Description</label>
+                <div class="control">
+                    <textarea class="textarea" v-model="form.description" placeholder="Description..."></textarea>
                 </div>
             </div>
             <div class="column file has-name is-boxed is-two-thirds">
+                <label class="label">image</label>
                 <label class="file-label">
-                    <input class="file-input" type="file" name="resume">
+                    <input class="file-input" ref="image" type="file" name="resume" @change="change(true)">
                     <span class="file-cta">
                     <span class="file-icon">
                         <i class="fas fa-upload"></i>
@@ -18,17 +25,26 @@
                         Choose a file…
                     </span>
                     </span>
-                    <span class="file-name">
-                    File name ...
+                    <span class="file-name" v-text="form.n_i">
                     </span>
                 </label>
             </div>
-            <div class="field column is-two-thirds">
-            <label class="label">Description</label>
-            <div class="control">
-                <textarea class="textarea" placeholder="Description..."></textarea>
+            <div class="column file has-name is-boxed is-two-thirds">
+                <label class="label">background image</label>
+                <label class="file-label">
+                    <input class="file-input" ref="image_bg" type="file" name="resume" @change="change(false)">
+                    <span class="file-cta">
+                    <span class="file-icon">
+                        <i class="fas fa-upload"></i>
+                    </span>
+                    <span class="file-label">
+                        Choose a file…
+                    </span>
+                    </span>
+                    <span class="file-name" v-text="form.n_i_b">
+                    </span>
+                </label>
             </div>
-        </div>
 
             <div class="field column is-two-thirds is-grouped">
                 <div class="control">
@@ -41,7 +57,43 @@
         </form>
 </template>
 
-<script>
+<script setup>
+import axios from 'axios';
+import Swal from 'sweetalert2';
+import { ref } from 'vue';
 
-
+const image = ref();
+const image_bg = ref();
+const form = ref({
+    title : '',
+    description : '',
+    n_i : 'name ...',
+    n_i_b : 'name ...'
+});
+function change (status){
+    if(status)
+        form.value.n_i = image.value.files[0]['name']
+    else
+        form.value.n_i_b = image_bg.value.files[0]['name']
+}
+async function submit(){
+    let formData = new FormData();
+    formData.append('image',image.value.files[0])
+    formData.append('image_bg',image_bg.value.files[0])
+    formData.append('title',form.value.title)
+    formData.append('description',form.value.description)
+    let post = await axios.post('http://localhost/afam-panel/new-category',formData);
+    if(post.data.status == false){
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong!',
+        })
+    }else{
+        Swal.fire({
+            icon: 'success',
+            title: post.data.text,
+        })
+    }
+}
 </script>

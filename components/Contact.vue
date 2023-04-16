@@ -39,7 +39,7 @@
                 </tbody>
             </table>
         </div>
-        <form v-else @submit.prevent="addEmail()" class="columns is-multiline" action="http://localhost/afam-wp/26-2/" method="get" enctype="multipart/form-data">
+        <form v-else @submit.prevent="addEmail()" class="columns is-multiline" enctype="multipart/form-data">
             <div class="field column is-two-thirds ">
                 <p>Send email to : {{ user }}</p>
             </div>
