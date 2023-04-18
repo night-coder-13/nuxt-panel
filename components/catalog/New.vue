@@ -122,42 +122,15 @@ import Swal from 'sweetalert2';
             }
         },
         async submit(){
-            let imgurl = await this.c_submitFile
-            if(imgurl != false){
-                let post = await axios.post('http://localhost/afam-panel/new-catalog/', {
-                    image_url : imgurl,
-                    title : this.title
-                    }
-                )
-                Swal.fire({
-                    title: post.data.text,
-                })
-                this.title = ''
-            }
-        },
-        async submitFile(){
-           
             let formData = new FormData();
-
             formData.append('file', this.file);
-  
-            let post = await axios.post('http://localhost/afam-panel/upload-catalog/', formData
-                , {
-                headers: {
-                    'Content-Type': `multipart/form-data`,
-                }
-                }
-            )
-            console.log(post.data)
-            this.previewImage = null
+            formData.append('title', this.title);
+            let post = await axios.post('http://localhost/afam-panel/new-catalog/', formData )
             Swal.fire({
                 title: post.data.text,
             })
-            if(post.data.status){
-               return post.data.imageurl
-            }else{
-                return false
-            }
+            this.title = ''
+    
         },
 
         handleFileUpload(){

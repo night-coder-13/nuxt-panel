@@ -27,6 +27,7 @@
                 <NuxtLink to="/product">Product</NuxtLink>
                 <ul>
                     <li><NuxtLink to="/product/category">Category</NuxtLink></li>
+                    <li><NuxtLink to="/product/categorylist">Category list</NuxtLink></li>
                     <li><NuxtLink to="/product/new">New Product</NuxtLink></li>
                     <li><NuxtLink to="/product/list">Product List</NuxtLink></li>
                 </ul>

@@ -8,6 +8,12 @@
                 </div>
             </div>
             <div class="field column is-two-thirds">
+                <label class="label">Symbol</label>
+                <div class="control">
+                    <input class="input" name="title" v-model="form.symbol" type="text" placeholder="Symbol" required>
+                </div>
+            </div>
+            <div class="field column is-two-thirds">
                 <label class="label">Description</label>
                 <div class="control">
                     <textarea class="textarea" v-model="form.description" placeholder="Description..."></textarea>
@@ -66,6 +72,7 @@ const image = ref();
 const image_bg = ref();
 const form = ref({
     title : '',
+    symbol : '',
     description : '',
     n_i : 'name ...',
     n_i_b : 'name ...'
@@ -81,13 +88,14 @@ async function submit(){
     formData.append('image',image.value.files[0])
     formData.append('image_bg',image_bg.value.files[0])
     formData.append('title',form.value.title)
+    formData.append('symbol',form.value.symbol)
     formData.append('description',form.value.description)
     let post = await axios.post('http://localhost/afam-panel/new-category',formData);
     if(post.data.status == false){
         Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            text: 'Something went wrong!',
+            text: post.data.text,
         })
     }else{
         Swal.fire({
