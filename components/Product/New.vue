@@ -77,6 +77,7 @@ async function getCat(){
     category.value = await axios.get('http://localhost/afam-panel/get-category')
     category.value = category.value.data
 }
+
 async function addProduct(){
     if(catId.value != null){
         var formData = new FormData();
