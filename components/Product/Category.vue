@@ -102,6 +102,13 @@ async function submit(){
             icon: 'success',
             title: post.data.text,
         })
+        form.value = {
+            title : '',
+            symbol : '',
+            description : '',
+            n_i : 'name ...',
+            n_i_b : 'name ...'
+        }
     }
 }
 </script>

@@ -145,9 +145,9 @@ function del (id){
     cancelButtonColor: '#d33',
     confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
-    if (Delete(id)) {
-       
-    }
+        if (result.dismiss != 'cancel') {
+            Delete(id)
+        }
     })
 }
 async function Delete(id){
@@ -159,14 +159,14 @@ async function Delete(id){
             title: 'Oops...',
             text: post.data.text,
         })
-        category.value = {}
     }else{
         Swal.fire({
             icon: 'success',
-            title: 'Deleted!',
+            title: post.data.text,
         })
-        category.value = post.data
+        category.value = post.data.fields
     }
+    console.log(post.data)
 }
 async function deleteImage(id){
     let post = await axios.post('http://localhost/afam-panel/delete-image-category/',{id : id})

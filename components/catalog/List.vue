@@ -109,9 +109,9 @@ function del (id){
     cancelButtonColor: '#d33',
     confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
-    if (Delete(id)) {
-       
-    }
+        if (result.dismiss != "cancel") {
+            Delete(id)
+        }
     })
 }
 async function Delete(id){

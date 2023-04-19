@@ -20,7 +20,7 @@
                 <label class="label">Recipients</label>
                 <div class="control">
                     <div class="select">
-                    <select name="category" v-model="form_Email.destination" required>
+                    <select name="category" required>
                         <option >Select </option>
                         <option value="Contact_us">Contact us </option>
                         <option value="Newslatter">Newslatter </option>
