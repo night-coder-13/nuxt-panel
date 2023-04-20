@@ -109,7 +109,7 @@ function del (id){
     cancelButtonColor: '#d33',
     confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
-        if (result.dismiss != "cancel") {
+        if (result.value) {
             Delete(id)
         }
     })

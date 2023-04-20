@@ -21,7 +21,7 @@
         </div>
         <div class="column file has-name is-boxed is-two-thirds">
             <label class="file-label">
-                <input type="file" id="file" class="file-input" ref="file" @change="File()" />
+                <input type="file" id="file" class="file-input" required ref="file" @change="File()" />
                 <span class="file-cta">
                 <span class="file-icon">
                     <i class="fas fa-upload"></i>

@@ -20,11 +20,10 @@
                 <label class="label">Recipients</label>
                 <div class="control">
                     <div class="select">
-                    <select name="category" required>
-                        <option >Select </option>
-                        <option value="Contact_us">Contact us </option>
-                        <option value="Newslatter">Newslatter </option>
-                        <option value="Newslatter_&_Contact_us">Newslatter & Contact us </option>
+                    <select name="category" v-model="form_Email.destination" required>
+                        <option value="Contact_us">Contact us</option>
+                        <option value="Newslatter">Newslatter</option>
+                        <option value="Newslatter_&_Contact_us">Newslatter & Contact us</option>
                     </select>
                     </div>
                 </div>
@@ -33,7 +32,7 @@
                 <div class="field column is-two-thirds">
                 <label class="label">Content</label>
                 <div class="control">
-                    <textarea class="textarea" v-model="form_Email.content"  placeholder="Description..."></textarea>
+                    <textarea class="textarea" v-model="form_Email.content" required placeholder="Description..."></textarea>
                 </div>
             </div>
 
@@ -63,10 +62,19 @@ const form_Email = ref({
 
 async function addEmail(){
     let post = await axios.post('http://localhost/afam-panel/new-email',form_Email.value)
-    Swal.fire({
-        icon: 'success',
-        title: post.data.text,
-    })
+    if(post.data == false){
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: post.data.text,
+        })
+    }else{
+        Swal.fire({
+            icon: 'success',
+            title: post.data.text,
+        })
+    }
+    console.log(post.data)
 }
 
 </script>

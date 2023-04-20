@@ -23,19 +23,19 @@
             <div class="tile is-ancestor has-text-centered">
                 <div class="tile is-parent ">
                     <article class="tile is-child box has-background-grey-dark has-text-white-bis">
-                        <p class="title has-text-white-bis	">1025</p>
-                        <p class="subtitle has-text-white-bis	">Emails</p>
+                        <p class="title has-text-white-bis" v-text="numberMember"></p>
+                        <p class="subtitle has-text-white-bis">Members</p>
                     </article>
                 </div>
                 <div class="tile is-parent">
                     <article class="tile is-child box has-background-grey-dark	">
-                        <p class="title has-text-white-bis">128</p>
+                        <p class="title has-text-white-bis" v-text="numberProduct"></p>
                         <p class="subtitle has-text-white-bis">Products</p>
                     </article>
                 </div>
                 <div class="tile is-parent">
                     <article class="tile is-child box has-background-grey-dark	">
-                        <p class="title has-text-white-bis">1k</p>
+                        <p class="title has-text-white-bis" v-text="numberContactUs"></p>
                         <p class="subtitle has-text-white-bis">Contact</p>
                     </article>
                 </div>
@@ -46,7 +46,23 @@
     </div>
 </template>
 
-<script>
+<script setup>
+import axios from 'axios';
+import { ref } from 'vue';
 
 
+const numberProduct = ref(0)
+const numberMember = ref(0)
+const numberContactUs = ref(0)
+
+async function get (){
+    let product = await axios.get('http://localhost/afam-panel/show-product')
+    numberProduct.value = product.data.length
+    let member = await axios.get('http://localhost/afam-panel/show-newsletter')
+    numberMember.value = member.data.length
+    console.log(member.data.length)
+    let content = await axios.get('http://localhost/afam-panel/show-contact')
+    numberContactUs.value = content.data.length
+}
+get()
 </script>

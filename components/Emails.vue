@@ -64,27 +64,27 @@ function del (id){
     cancelButtonColor: '#d33',
     confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
-    if (Delete(id)) {
-       
-    }
+        if (result.value) {
+            Delete(id)
+        }
     })
 }
 async function Delete(id){
-    category.value = await axios.post('http://localhost/afam-panel/delete-email',{id : id})
-    count.value = category.value.data.length 
-    if(category.value.data == false){
+    let post = await axios.post('http://localhost/afam-panel/delete-email',{id : id})
+    count.value = post.data.fields.length 
+    if(post.data == false){
         Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            text: 'Something went wrong!',
+            text: post.data.text,
         })
     }else{
         Swal.fire({
             icon: 'success',
-            title: 'Deleted!',
+            title: post.data.text,
         })
+        category.value = post.data.fields
     }
-    category.value = category.value.data
 }
 
 get()

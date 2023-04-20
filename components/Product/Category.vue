@@ -22,7 +22,7 @@
             <div class="column file has-name is-boxed is-two-thirds">
                 <label class="label">image</label>
                 <label class="file-label">
-                    <input class="file-input" ref="image" type="file" name="resume" @change="change(true)">
+                    <input class="file-input" ref="image" type="file" name="resume" @change="change(true)" required>
                     <span class="file-cta">
                     <span class="file-icon">
                         <i class="fas fa-upload"></i>

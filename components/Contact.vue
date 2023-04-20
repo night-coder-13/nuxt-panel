@@ -53,7 +53,7 @@
             <div class="field column is-two-thirds">
                 <label class="label">Content</label>
                 <div class="control">
-                    <textarea class="textarea" v-model="form_Email.content" placeholder="Description..."></textarea>
+                    <textarea class="textarea" v-model="form_Email.content" placeholder="Description..." required></textarea>
                 </div>
             </div>
             <div class="field column is-two-thirds is-grouped">
@@ -79,7 +79,7 @@ const sendemail = ref(false);
 const user = ref('');
 const form_Email = ref({
     title : '',
-    destination : '',
+    destination_email : '',
     content : '',
     date : '0000-00-00',
 });
@@ -94,7 +94,7 @@ function SendEmail(email){
     user.value = email;
 }
 async function addEmail(){
-    form_Email.value.destination = user.value
+    form_Email.value.destination_email = user.value
     let post = await axios.post('http://localhost/afam-panel/new-email',form_Email.value)
     Swal.fire({
         icon: 'success',
@@ -112,7 +112,8 @@ function del (id){
     cancelButtonColor: '#d33',
     confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
-        if (result.dismiss != 'cancel') {
+        console.log(result)
+        if (result.value ) {
             Delete(id)
         }
     })

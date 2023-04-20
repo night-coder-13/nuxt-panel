@@ -14,10 +14,8 @@
             </div>
             <div id="navMenu" class="navbar-menu">
                 <div class="navbar-start">
-                    <a class="navbar-item" href="http://panel.mehdi-abasian.ir/admin">
-                        Wordpress Dashboard
-                    </a>
-                    <a class="navbar-item" href="http://comp.mehdi-abasian.ir">
+                    
+                    <a class="navbar-item" href="http://afambuild.com">
                         Websit
                     </a>
                 </div>
